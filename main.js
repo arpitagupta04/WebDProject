@@ -19,7 +19,7 @@ var password = document.forms["form"]["password"];
 var email_error = document.getElementById("email_error");
 var pass_error = document.getElementById("pass_error");
 
-email.addEventListener("textInput", email_Verify);
+email.addEventListener("keyup", email_Verify);
 password.addEventListener("textInput", pass_Verify);
 
 function validated() {
@@ -37,9 +37,14 @@ function validated() {
   }
 }
 function email_Verify() {
-  if (email.value.length >= 8) {
-    email.style.border = "1px solid silver";
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value) || /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(email.value)) {
+    email.style.border = "1px solid green";
     email_error.style.display = "none";
+    return true;
+  }
+  else{
+    email.style.border = "1px solid red";
+    email_error.style.display = "block";
     return true;
   }
 }
